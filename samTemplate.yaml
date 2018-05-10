@@ -1,4 +1,8 @@
 AWSTemplateFormatVersion: '2010-09-09'
+Parameters:
+  lambdatag:
+    Type: String
+    Default: live
 Transform: AWS::Serverless-2016-10-31
 Description: Outputs the time
 Resources:
@@ -8,6 +12,7 @@ Resources:
       Handler: index.handler
       Runtime: nodejs6.10
       CodeUri: ./
+      AutoPublishAlias: !Ref lambdatag
       Events:
         MyTimeApi:
           Type: Api
