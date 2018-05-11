@@ -1,4 +1,4 @@
 def lambda_handler(event, context):
     # TODO implement
-    print ("HelloWorld")
+    print ("HelloWorld1")
     return 'Hello from Lambda'
