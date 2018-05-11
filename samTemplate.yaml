@@ -1,21 +1,17 @@
-AWSTemplateFormatVersion: '2010-09-09'
-Parameters:
-  lambdatag:
-    Type: String
-    Default: live
+AWSTemplateFormatVersion : '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
-Description: Outputs the time
+Parameters:
+    lambdatag:
+        Type: String
+        Default: live
+
+Description: A sample Lambda Safe Deployment Application
 Resources:
-  TimeFunction:
+  CodeDeployLambda:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: index.handler
-      Runtime: nodejs6.10
-      CodeUri: ./
+      Handler: index.lambda_handler
+      Runtime: python3.6
       AutoPublishAlias: !Ref lambdatag
-      Events:
-        MyTimeApi:
-          Type: Api
-          Properties:
-            Path: /TimeResource
-            Method: GET
+      CodeUri: ./
+ 
