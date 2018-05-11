@@ -2,7 +2,6 @@ version: 0.1
 phases:
   install:
     commands:
-      - npm install time
       - tag=`date -u +%Y%m%d%H%M%S%N`
       - echo '{"Parameters":{"lambdatag":"'${tag}'"}}' >> params.json
       - cat params.json
