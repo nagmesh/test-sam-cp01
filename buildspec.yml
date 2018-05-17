@@ -1,14 +1,10 @@
-version: 0.2
 phases:
   install:
     commands:
-      - tag=`date -u +%Y%m%d%H%M%S%N`
-      - echo '{"Parameters":{"lambdatag":"c'${tag}'"}}' >> params.json
+      - echo '{"Parameters":{"lambdatag":"'${CODEBUILD_RESOLVED_SOURCE_VERSION}'"}}' >> params.json
       - cat params.json
       - aws cloudformation package --template-file samTemplate.yaml --s3-bucket nagmeshk-sam-test --output-template-file outputSamTemplate.yaml
 artifacts:
   type: zip
   files:
-    - samTemplate.yaml
-    - outputSamTemplate.yaml
-    - params.json
+    - *
