@@ -1,17 +1,19 @@
-AWSTemplateFormatVersion : '2010-09-09'
-Transform: AWS::Serverless-2016-10-31
+AWSTemplateFormatVersion: 2010-09-09
+Transform: 'AWS::Serverless-2016-10-31'
 Parameters:
-    lambdatag:
-        Type: String
-        Default: live
-
+  lambdatag:
+    Type: String
+    Default: live
 Description: A sample Lambda Safe Deployment Application
 Resources:
   CodeDeployLambda:
-    Type: AWS::Serverless::Function
+    Type: 'AWS::Serverless::Function'
+    Description: !Join 
+      - ' '
+      - - Lambda function for Ping authorization
+        - !Ref lambdatag
     Properties:
       Handler: index.lambda_handler
       Runtime: python3.6
       AutoPublishAlias: !Ref lambdatag
-      CodeUri: ./
- 
+      CodeUri: ./ 
