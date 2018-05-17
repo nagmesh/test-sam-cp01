@@ -8,10 +8,7 @@ Description: A sample Lambda Safe Deployment Application
 Resources:
   CodeDeployLambda:
     Type: 'AWS::Serverless::Function'
-    Description: !Join 
-      - ' '
-      - - Lambda function for Ping authorization
-        - !Ref lambdatag
+    Description: Lambda function test
     Properties:
       Handler: index.lambda_handler
       Runtime: python3.6
