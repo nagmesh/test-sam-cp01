@@ -8,9 +8,12 @@ Description: A sample Lambda Safe Deployment Application
 Resources:
   CodeDeployLambda:
     Type: 'AWS::Serverless::Function'
-    Description: Lambda function test
     Properties:
       Handler: index.lambda_handler
+      Description: !Join 
+        - ' '
+        - - Lambda function test
+          - !Ref lambdatag
       Runtime: python3.6
       AutoPublishAlias: !Ref lambdatag
       CodeUri: ./ 
