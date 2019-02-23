@@ -6,10 +6,7 @@ Resources:
     Type: 'AWS::Serverless::Function'
     Properties:
       Handler: index.lambda_handler
-      Description: !Join 
-        - ' '
-        - - Lambda function test
-          - !Ref lambdatag
+      Description: Lambda function test
       Runtime: python3.6
       AutoPublishAlias: live
       CodeUri: ./
