@@ -11,7 +11,7 @@ Resources:
       AutoPublishAlias: live
       CodeUri: ./
       DeploymentPreference:
-        Type: Linear10PercentEvery10Minutes
+        Type: Canary10Percent5Minutes
         Alarms:
           # A list of alarms that you want to monitor
           - !Ref AliasErrorMetricGreaterThanZeroAlarm
