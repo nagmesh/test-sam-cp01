@@ -15,11 +15,11 @@ Resources:
       CodeUri: ./
       DeploymentPreference:
       	Enabled: true
-  	Type: Linear10PercentEvery10Minutes
-  	Alarms:
-    	  # A list of alarms that you want to monitor
-    	  - !Ref AliasErrorMetricGreaterThanZeroAlarm
-    	  - !Ref LatestVersionErrorMetricGreaterThanZeroAlarm
+        Type: Linear10PercentEvery10Minutes
+        Alarms:
+            # A list of alarms that you want to monitor
+            - !Ref AliasErrorMetricGreaterThanZeroAlarm
+            - !Ref LatestVersionErrorMetricGreaterThanZeroAlarm
   AliasErrorMetricGreaterThanZeroAlarm:
     Type: "AWS::CloudWatch::Alarm"
     Properties:
