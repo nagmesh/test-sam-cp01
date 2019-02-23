@@ -1,9 +1,5 @@
 AWSTemplateFormatVersion: 2010-09-09
 Transform: 'AWS::Serverless-2016-10-31'
-Parameters:
-  lambdatag:
-    Type: String
-    Default: live
 Description: A sample Lambda Safe Deployment Application
 Resources:
   CodeDeployLambda:
@@ -15,5 +11,47 @@ Resources:
         - - Lambda function test
           - !Ref lambdatag
       Runtime: python3.6
-      AutoPublishAlias: !Ref lambdatag
-      CodeUri: ./ 
+      AutoPublishAlias: live
+      CodeUri: ./
+      DeploymentPreference:
+      	Enabled: true
+  	Type: Linear10PercentEvery10Minutes
+  	Alarms:
+    	  # A list of alarms that you want to monitor
+    	  - !Ref AliasErrorMetricGreaterThanZeroAlarm
+    	  - !Ref LatestVersionErrorMetricGreaterThanZeroAlarm
+  AliasErrorMetricGreaterThanZeroAlarm:
+    Type: "AWS::CloudWatch::Alarm"
+    Properties:
+      AlarmDescription: Lambda Function Error > 0
+      ComparisonOperator: GreaterThanThreshold
+      Dimensions:
+        - Name: Resource
+          Value: !Sub "${CodeDeployLambda}:live"
+        - Name: FunctionName
+          Value: !Ref CodeDeployLambda
+      EvaluationPeriods: 2
+      MetricName: Errors
+      Namespace: AWS/Lambda
+      Period: 60
+      Statistic: Sum
+      Threshold: 0
+
+  LatestVersionErrorMetricGreaterThanZeroAlarm:
+    Type: "AWS::CloudWatch::Alarm"
+    Properties:
+      AlarmDescription: Lambda Function Error > 0
+      ComparisonOperator: GreaterThanThreshold
+      Dimensions:
+        - Name: Resource
+          Value: !Sub "${CodeDeployLambda}:live"
+        - Name: FunctionName
+          Value: !Ref CodeDeployLambda
+        - Name: ExecutedVersion
+          Value: !GetAtt CodeDeployLambda.Version.Version
+      EvaluationPeriods: 2
+      MetricName: Errors
+      Namespace: AWS/Lambda
+      Period: 60
+      Statistic: Sum
+      Threshold: 0
